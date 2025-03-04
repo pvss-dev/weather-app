@@ -1,13 +1,13 @@
 import React from 'react';
 import '../style/Card.css';
-import Header from "./Header.tsx";
 import WeatherInfo from "./WeatherInfo.tsx";
+import SearchInput from './SearchInput.tsx';
 
 const Card: React.FC = () => {
     return (
         <>
             <main className="main-container">
-                <Header/>
+                <SearchInput/>
                 <WeatherInfo/>
             </main>
         </>

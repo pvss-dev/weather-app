@@ -1,7 +1,7 @@
 import React from 'react';
-import '../style/Header.css';
+import '../style/SearchInput.css';
 
-const Header: React.FC = () => {
+const SearchInput: React.FC = () => {
     return (
         <>
             <header className="input-container">
@@ -14,4 +14,4 @@ const Header: React.FC = () => {
     );
 };
 
-export default Header;
+export default SearchInput;
