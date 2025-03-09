@@ -7,8 +7,8 @@ const Card: React.FC = () => {
     return (
         <>
             <main className="main-container">
-                <SearchInput/>
-                <WeatherInfo/>
+                <SearchInput />
+                <WeatherInfo />
             </main>
         </>
     );
