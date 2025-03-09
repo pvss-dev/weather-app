@@ -1,20 +1,19 @@
 const API_KEY = import.meta.env.VITE_OPEN_WEATHER_KEY;
 const BASE_URL = "https://api.openweathermap.org/geo/1.0";
 
-interface CityCoordinates {
+export interface CityCoordinates {
     name: string;
     country: string;
     lat: number;
     lon: number;
-}
+};
 
-interface OpenWeatherResponse {
+export interface OpenWeatherResponse {
     name: string;
     country: string;
     lat: number;
     lon: number;
-}
-
+};
 
 export const getCityCoordinates = async (
     city: string,
@@ -54,4 +53,4 @@ export const getCityCoordinates = async (
         lat: data[0].lat,
         lon: data[0].lon
     };
-}
+};

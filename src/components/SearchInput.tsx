@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import "../style/SearchInput.css";
-import { getCityCoordinates } from "../api/getCityCoordinates";
+import { getCityCoordinates, CityCoordinates } from "../api/getCityCoordinates";
+import { getCityWeather, CityWeatherData } from "../api/getCityWeather";
 
 const SearchInput: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [cityData, setCityData] = useState<{
-    name: string;
-    country: string;
-    lat: number;
-    lon: number;
-  } | null>(null);
+  const [cityData, setCityData] = useState<CityCoordinates | null>(null);
 
+  const [weatherData, setWeatherData] = useState<CityWeatherData | null>(null);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -22,8 +19,17 @@ const SearchInput: React.FC = () => {
       const data = await getCityCoordinates(searchTerm);
       setCityData(data);
       console.log("Resultado da pesquisa:", data);
-    } catch (err: any) {
-      console.error("Erro:", err);
+
+      if (data) {
+        const weather = await getCityWeather(data.lat, data.lon, {
+          units: "metric",
+          lang: "pt_br",
+        });
+        setWeatherData(weather);
+        console.log("Dados do clima:", weather);
+      }
+    } catch (erro: any) {
+      console.error("Erro:", erro);
     }
   };
 
