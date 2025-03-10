@@ -21,10 +21,10 @@ export interface CityWeatherData {
         wind_speed: number;
         wind_deg: number;
         wind_gust: number;
-        rain: {
+        rain?: {
             "1h": number;
         };
-        snow: {
+        snow?: {
             "1h": number;
         };
         weather: {
@@ -32,7 +32,10 @@ export interface CityWeatherData {
             main: string;
             description: string;
             icon: string;
-        };
+        }[];
+        formattedTemp: number;
+        formattedDescription: string;
+        formattedWindSpeed: string;
     };
     minutely?: {
         dt: number;
@@ -51,10 +54,10 @@ export interface CityWeatherData {
         wind_speed: number;
         wind_deg: number;
         wind_gust: number;
-        rain: {
+        rain?: {
             "1h": number;
         }
-        snow: {
+        snow?: {
             "1h": number;
         };
         weather: {
@@ -62,7 +65,7 @@ export interface CityWeatherData {
             main: string;
             description: string;
             icon: string;
-        };
+        }[];
         pop: number;
     };
     daily?: {
@@ -103,7 +106,7 @@ export interface CityWeatherData {
             main: string;
             description: string;
             icon: string;
-        };
+        }[];
     };
     alerts?: {
         sender_name: string;
@@ -148,5 +151,14 @@ export const getCityWeather = async (
     }
 
     const data: CityWeatherData = await response.json();
+
+    if (data.current) {
+        const weather = data.current.weather[0] || { description: "", icon: "" };
+
+        data.current.formattedTemp = Math.round(data.current.temp);
+        data.current.formattedDescription =
+            weather.description.charAt(0).toUpperCase() + weather.description.slice(1);
+        data.current.formattedWindSpeed = `${(data.current.wind_speed * 3.6).toFixed(2)} km/h`;
+    }
     return data;
 };
