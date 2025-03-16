@@ -1,6 +1,35 @@
 const API_KEY = import.meta.env.VITE_OPEN_WEATHER_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/3.0";
 
+const capitalizeFirstLetter = (text: string) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+const formatDate = (
+    timestamp: number,
+    timezoneOffset: number,
+    locale: string = "pt-BR",
+    format: "short" | "long" = "long"
+) => {
+    const adjustedTimestamp = (timestamp + timezoneOffset) * 1000;
+    const dateObj = new Date(adjustedTimestamp);
+
+    const formattedDay = dateObj.toLocaleDateString(locale, { day: "2-digit" });
+    const formattedMonth = capitalizeFirstLetter(
+        dateObj.toLocaleDateString(locale, { month: "short" })
+    );
+
+    if (format === "short") {
+        return `${formattedDay} ${formattedMonth}`;
+    }
+
+    const formattedWeekday = capitalizeFirstLetter(
+        dateObj.toLocaleDateString(locale, { weekday: "short" })
+    );
+
+    return `${formattedWeekday}, ${formattedDay} de ${formattedMonth}`;
+};
+
 export interface CityWeatherData {
     lat: number;
     lon: number;
@@ -8,6 +37,7 @@ export interface CityWeatherData {
     timezone_offset: number;
     current?: {
         dt: number;
+        formattedDate?: string;
         sunrise: number;
         sunset: number;
         temp: number;
@@ -40,7 +70,7 @@ export interface CityWeatherData {
     minutely?: {
         dt: number;
         precipitation: number;
-    };
+    }[];
     hourly?: {
         dt: number;
         temp: number;
@@ -67,9 +97,10 @@ export interface CityWeatherData {
             icon: string;
         }[];
         pop: number;
-    };
+    }[];
     daily?: {
         dt: number;
+        formattedDate?: string;
         sunrise: number;
         sunset: number;
         moonrise: number;
@@ -107,15 +138,15 @@ export interface CityWeatherData {
             description: string;
             icon: string;
         }[];
-    };
+    }[];
     alerts?: {
         sender_name: string;
         event: string;
         start: number;
         end: number;
         description: string;
-        tags: string;
-    };
+        tags: string[];
+    }[];
 };
 
 export const getCityWeather = async (
@@ -134,31 +165,45 @@ export const getCityWeather = async (
     const params = new URLSearchParams({
         lat: lat.toString(),
         lon: lon.toString(),
-        appid: API_KEY
+        appid: API_KEY,
+        ...(options?.exclude && { exclude: options.exclude }),
+        ...(options?.units && { units: options.units }),
+        ...(options?.lang && { lang: options.lang })
     });
-
-    if (options?.exclude) params.append("exclude", options.exclude);
-    if (options?.units) params.append("units", options.units);
-    if (options?.lang) params.append("lang", options.lang);
 
     const url = `${BASE_URL}/onecall?${params.toString()}`;
 
-    const response = await fetch(url);
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Erro na requisição: ${response.statusText}. Detalhes: ${errorText}`);
+        }
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Erro na requisição: ${response.statusText}. Detalhes: ${errorText}`);
+        const data: CityWeatherData = await response.json();
+
+        if (data.current) {
+            const weather = data.current.weather[0] || { description: "", icon: "" };
+
+            data.current = {
+                ...data.current,
+                formattedTemp: Math.round(data.current.temp),
+                formattedDescription: capitalizeFirstLetter(weather.description),
+                formattedWindSpeed: `${(data.current.wind_speed * 3.6).toFixed(2)} km/h`,
+                formattedDate: formatDate(data.current.dt, data.timezone_offset),
+            };
+        }
+
+        if (Array.isArray(data.daily)) {
+            data.daily = data.daily.map((day) => ({
+                ...day,
+                formattedDate: formatDate(day.dt, data.timezone_offset, "pt-BR", "short"),
+            }));
+        }
+
+        return data;
+    } catch (error) {
+        console.error("Erro ao obter dados meteorológicos:", error);
+        throw new Error("Erro ao buscar dados do clima. Tente novamente mais tarde.");
     }
-
-    const data: CityWeatherData = await response.json();
-
-    if (data.current) {
-        const weather = data.current.weather[0] || { description: "", icon: "" };
-
-        data.current.formattedTemp = Math.round(data.current.temp);
-        data.current.formattedDescription =
-            weather.description.charAt(0).toUpperCase() + weather.description.slice(1);
-        data.current.formattedWindSpeed = `${(data.current.wind_speed * 3.6).toFixed(2)} km/h`;
-    }
-    return data;
 };

@@ -5,6 +5,7 @@ import ErrorMessage from './ErrorMessage';
 import { CityCoordinates } from '../api/getCityCoordinates';
 import { CityWeatherData } from '../api/getCityWeather';
 import { getWeatherIconUrl } from '../api/getWeatherIcon.ts';
+import Forecast from "./Forecast";
 
 interface WeatherInfoProps {
     cityData: CityCoordinates | null;
@@ -32,9 +33,10 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({
     const { name, country } = cityData;
     const { current, daily } = weatherData;
 
+    console.log(daily);
+
     const iconCode = weatherData.current.weather[0].icon;
     const iconUrl = getWeatherIconUrl(iconCode);
-
 
     return (
         <>
@@ -46,7 +48,7 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({
                         </span>
                         <h4 className="country-txt">{name}, {country}</h4>
                     </div>
-                    <h5 className="current-date-txt regular-txt">Terça-feira, 25 Fev</h5>
+                    <h5 className="current-date-txt regular-txt">{weatherData.current?.formattedDate}</h5>
                 </div>
                 <div className="weather-summary-container">
                     {current && (
@@ -81,33 +83,12 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({
                             air
                         </span>
                         <div className="condition-info">
-                            <h5 className="regular-txt">Wind Speed</h5>
+                            <h5 className="regular-txt">Vel. do Vento</h5>
                             {current && <h5 className="wind-value-txt">{weatherData.current?.formattedWindSpeed}</h5>}
                         </div>
                     </div>
                 </div>
-                <div className="forecast-items-container">
-                    <div className="forecast-item">
-                        <h5 className="forecast-item-date regular-txt">05 Aug</h5>
-                        <img src="src/assets/img/thunderstorm.svg" alt="thunderstorm" className="forecast-item-img" />
-                        <h5 className="forecast-item-temp">29 °C</h5>
-                    </div>
-                    <div className="forecast-item">
-                        <h5 className="forecast-item-date regular-txt">05 Aug</h5>
-                        <img src="src/assets/img/thunderstorm.svg" alt="thunderstorm" className="forecast-item-img" />
-                        <h5 className="forecast-item-temp">29 °C</h5>
-                    </div>
-                    <div className="forecast-item">
-                        <h5 className="forecast-item-date regular-txt">05 Aug</h5>
-                        <img src="src/assets/img/thunderstorm.svg" alt="thunderstorm" className="forecast-item-img" />
-                        <h5 className="forecast-item-temp">29 °C</h5>
-                    </div>
-                    <div className="forecast-item">
-                        <h5 className="forecast-item-date regular-txt">05 Aug</h5>
-                        <img src="src/assets/img/thunderstorm.svg" alt="thunderstorm" className="forecast-item-img" />
-                        <h5 className="forecast-item-temp">29 °C</h5>
-                    </div>
-                </div>
+                <Forecast daily={daily} />
             </section>
             <Message />
             <ErrorMessage />
