@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getCityCoordinates, CityCoordinates } from "../api/getCityCoordinates";
 import { getCityWeather, CityWeatherData } from "../api/getCityWeather";
+import { getCityCoordinatesBrowser } from "../api/getCityCoordinatesBrowser";
 
 export const useCityWeather = () => {
     const [cityData, setCityData] = useState<CityCoordinates | null>(null);
@@ -12,7 +13,6 @@ export const useCityWeather = () => {
             setError(null);
             const data = await getCityCoordinates(cityName);
             setCityData(data);
-            console.log("Resultado da pesquisa:", data);
 
             if (data) {
                 const weather = await getCityWeather(data.lat, data.lon, {
@@ -20,13 +20,34 @@ export const useCityWeather = () => {
                     lang: "pt_br"
                 });
                 setWeatherData(weather);
-                console.log("Dados do clima:", weather);
             }
         } catch (err) {
             setError("Erro ao buscar os dados. Verifique o nome da cidade.");
-            console.error("Erro:", err);
         }
     };
 
-    return { cityData, weatherData, error, fetchCityWeather };
+    const fetchWeatherByLocation = async () => {
+        try {
+            setError(null);
+            const { lat, lon, city, country } = await getCityCoordinatesBrowser();
+
+            setCityData({
+                name: city ?? "Localização Desconhecida",
+                country: country ?? "Desconhecido",
+                lat,
+                lon
+            });
+
+            const weather = await getCityWeather(lat, lon, {
+                units: "metric",
+                lang: "pt_br"
+            });
+
+            setWeatherData({ ...weather });
+        } catch (err) {
+            setError("Erro ao obter a localização.");
+        }
+    };
+
+    return { cityData, weatherData, error, fetchCityWeather, fetchWeatherByLocation };
 };

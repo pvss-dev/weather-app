@@ -1,37 +1,64 @@
 .input-container {
     position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
     margin-bottom: 25px;
 }
 
 .city-input {
-    width: 100%;
+    flex: 1;
     border-radius: 99px;
     border: 3px solid transparent;
-    background: rgb(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.15);
     outline: none;
     font-weight: 500;
     transition: 0.25s border;
-    padding: 10px 60px 10px 16px;
+    padding: 10px 50px 10px 16px;
+    color: white;
 }
 
 .city-input:focus {
-    border: 3px solid rgb(255, 255, 255, 0.15);
+    border: 3px solid rgba(255, 255, 255, 0.15);
 }
 
 .city-input::placeholder {
-    color: rgb(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.75);
 }
 
-.search-btn {
+.search-btn,
+.location-btn {
     position: absolute;
-    right: 16px;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
     background: none;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 24px;
+    color: white;
+    transition: color 0.3s ease-in-out;
+}
+
+.search-btn {
+    right: 40px;
+}
+
+.location-btn {
+    right: 10px;
+}
+
+.search-btn:hover,
+.location-btn:hover {
+    color: #ddd;
+}
+
+.location-btn:disabled {
+    color: gray;
+    cursor: not-allowed;
+}
+
+.error-message {
+    font-size: 20px;
+    text-align: center;
 }

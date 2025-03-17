@@ -5,12 +5,12 @@ import SearchInput from './SearchInput.tsx';
 import { useCityWeather } from '../hooks/useCityWeather';
 
 const Card: React.FC = () => {
-    const { cityData, weatherData, error, fetchCityWeather } = useCityWeather();
+    const { cityData, weatherData, error, fetchCityWeather, fetchWeatherByLocation } = useCityWeather();
 
     return (
         <>
             <main className="main-container">
-                <SearchInput fetchCityWeather={fetchCityWeather} error={error} />
+                <SearchInput fetchCityWeather={fetchCityWeather} fetchWeatherByLocation={fetchWeatherByLocation} error={error} />
                 <WeatherInfo cityData={cityData} weatherData={weatherData} error={error} />
             </main>
         </>

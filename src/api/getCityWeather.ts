@@ -203,7 +203,6 @@ export const getCityWeather = async (
 
         return data;
     } catch (error) {
-        console.error("Erro ao obter dados meteorológicos:", error);
         throw new Error("Erro ao buscar dados do clima. Tente novamente mais tarde.");
     }
 };

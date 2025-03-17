@@ -19,24 +19,16 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({
     error
 }) => {
 
-    if (error) {
-        return <ErrorMessage />;
-    }
-    if (!cityData || !weatherData) {
-        return <Message />;
-    }
-
-    if (!weatherData?.current?.weather?.length) {
-        return null;
-    }
+    if (error) return <ErrorMessage />;
+    if (!cityData || !weatherData) return <Message />;
 
     const { name, country } = cityData;
     const { current, daily } = weatherData;
 
-    console.log(daily);
+    if (!current?.weather?.length) return null;
 
-    const iconCode = weatherData.current.weather[0].icon;
-    const iconUrl = getWeatherIconUrl(iconCode);
+    const { humidity, formattedDescription, formattedTemp, formattedWindSpeed, weather } = current;
+    const iconUrl = getWeatherIconUrl(weather[0].icon);
 
     return (
         <>
@@ -48,20 +40,20 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({
                         </span>
                         <h4 className="country-txt">{name}, {country}</h4>
                     </div>
-                    <h5 className="current-date-txt regular-txt">{weatherData.current?.formattedDate}</h5>
+                    <h5 className="current-date-txt regular-txt">{current.formattedDate}</h5>
                 </div>
                 <div className="weather-summary-container">
                     {current && (
                         <>
                             <img
                                 src={iconUrl}
-                                alt={weatherData.current?.formattedDescription}
+                                alt={formattedDescription}
                                 className="weather-summary-img"
                             />
                             <div className="weather-summary-info">
-                                <h1 className="temp-txt">{weatherData.current?.formattedTemp} °C</h1>
+                                <h1 className="temp-txt">{formattedTemp} °C</h1>
                                 <h3 className="condition-txt regular-txt">
-                                    {weatherData.current?.formattedDescription}
+                                    {formattedDescription}
                                 </h3>
                             </div>
                         </>
@@ -75,7 +67,7 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({
                         </span>
                         <div className="condition-info">
                             <h5 className="regular-txt">Umidade</h5>
-                            {current && <h5 className="humidity-value-txt">{current.humidity}%</h5>}
+                            {current && <h5 className="humidity-value-txt">{`${humidity}%`}</h5>}
                         </div>
                     </div>
                     <div className="condition-item">
@@ -84,14 +76,12 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({
                         </span>
                         <div className="condition-info">
                             <h5 className="regular-txt">Vel. do Vento</h5>
-                            {current && <h5 className="wind-value-txt">{weatherData.current?.formattedWindSpeed}</h5>}
+                            {current && <h5 className="wind-value-txt">{formattedWindSpeed || ""}</h5>}
                         </div>
                     </div>
                 </div>
                 <Forecast daily={daily} />
             </section>
-            <Message />
-            <ErrorMessage />
         </>
     );
 };

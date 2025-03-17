@@ -1,14 +1,13 @@
 import React from 'react';
-import '../style/ErrorMessage.css';
 
-const Message: React.FC = () => {
+const ErrorMessage: React.FC = () => {
     return (
         <>
-            <section className="not-found section-message" style={{ display: 'none' }}>
+            <section className="not-found section-message">
                 <img src="src/assets/img/not-found.png" alt="Não encontrado" />
             </section>
         </>
     );
 };
 
-export default Message;
+export default ErrorMessage;
