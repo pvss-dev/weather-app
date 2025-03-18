@@ -10,7 +10,7 @@
 }
 
 body {
-    background: url('assets/img/bg.jpg');
+    background: url('/img/bg.jpg');
     width: 100%;
     height: 100vh;
     background-size: cover;
