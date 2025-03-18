@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 25px;
+    margin: 0 auto 25px auto;
 }
 
 .city-input {
@@ -61,33 +61,4 @@
 .error-message {
     font-size: 20px;
     text-align: center;
-}
-
-@media screen and (max-width: 768px) {
-    .input-container {
-        flex-direction: row;
-        width: 90%;
-        align-items: center;
-        position: relative;
-    }
-
-    .city-input {
-        width: 100%;
-        font-size: 14px;
-        padding: 12px;
-        padding-right: 80px;
-    }
-
-    .search-btn, .location-btn {
-        font-size: 20px;
-        position: absolute;
-    }
-
-    .search-btn {
-        right: 16px;
-    }
-
-    .location-btn {
-        right: 45px;
-    }
 }

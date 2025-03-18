@@ -10,7 +10,7 @@
 }
 
 html, body {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     overflow: hidden;
     touch-action: none;
@@ -34,13 +34,4 @@ body::before {
     background: rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(15px);
     z-index: 0;
-}
-
-@media screen and (max-width: 768px) {
-    body {
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 20px;
-    }
 }
