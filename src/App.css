@@ -17,11 +17,76 @@ body {
 }
 
 body {
-    background: url('/img/bg.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    animation: changeBackground 100s infinite;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+}
+
+@keyframes changeBackground {
+    0% {
+        background-image: url('/img/bg1.jpg');
+    }
+
+    7% {
+        background-image: url('/img/bg2.jpg');
+    }
+
+    14% {
+        background-image: url('/img/bg3.jpg');
+    }
+
+    21% {
+        background-image: url('/img/bg4.jpg');
+    }
+
+    28% {
+        background-image: url('/img/bg5.jpg');
+    }
+
+    35% {
+        background-image: url('/img/bg6.jpg');
+    }
+
+    42% {
+        background-image: url('/img/bg7.jpg');
+    }
+
+    49% {
+        background-image: url('/img/bg8.jpg');
+    }
+
+    56% {
+        background-image: url('/img/bg9.jpg');
+    }
+
+    63% {
+        background-image: url('/img/bg10.jpg');
+    }
+
+    70% {
+        background-image: url('/img/bg11.jpg');
+    }
+
+    77% {
+        background-image: url('/img/bg12.jpg');
+    }
+
+    84% {
+        background-image: url('/img/bg13.jpg');
+    }
+
+    91% {
+        background-image: url('/img/bg14.jpg');
+    }
+
+    100% {
+        background-image: url('/img/bg1.jpg');
+    }
 }
 
 body::before {
