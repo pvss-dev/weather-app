@@ -35,3 +35,17 @@ body::before {
     backdrop-filter: blur(15px);
     z-index: 0;
 }
+
+@media screen and (max-width: 768px) {
+    body {
+        background-color: #334e5c;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    html {
+        background-color: #334e5c;
+    }
+}
