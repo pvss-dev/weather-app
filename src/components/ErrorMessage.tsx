@@ -4,7 +4,7 @@ const ErrorMessage: React.FC = () => {
     return (
         <>
             <section className="not-found section-message">
-                <img src="src/assets/img/not-found.png" alt="Não encontrado" />
+                <img src="/img/not-found.png" alt="Não encontrado" />
             </section>
         </>
     );
