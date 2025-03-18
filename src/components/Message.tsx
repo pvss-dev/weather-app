@@ -5,7 +5,7 @@ const Message: React.FC = () => {
     return (
         <>
             <section className="search-city section-message">
-                <img src="src/assets/img/search-city.png" alt="Procurar" />
+                <img src="/img/search-city.png" alt="Procurar" />
 
                 <div>
                     <h1>Pesquisar Cidade</h1>
