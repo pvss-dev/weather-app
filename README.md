@@ -47,4 +47,8 @@ A aplicação estará disponível em `http://localhost:5173/`.
 
 ## 📸 Captura de Tela
 
-*(Adicione uma captura de tela do projeto aqui)*
+### 🔍 Tela de Pesquisa
+![Tela de Pesquisa](./src/assets/search_screen.png)
+
+### 🌤️ Tela de Previsão do Tempo
+![Tela de Clima](./src/assets/weather_screen.png)
