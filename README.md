@@ -4,9 +4,7 @@ Este é um aplicativo de previsão do tempo desenvolvido em **React** e **TypeSc
 
 ## 🚀 Tecnologias Utilizadas
 
-- [React](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [OpenWeather API](https://openweathermap.org/api) para dados climáticos
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
 ## 📦 Instalação
 
