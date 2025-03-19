@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# 🌤️ Projeto de Clima
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um aplicativo de previsão do tempo desenvolvido em **React** e **TypeScript**, utilizando a API do **OpenWeather** para obter informações meteorológicas em tempo real.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [OpenWeather API](https://openweathermap.org/api) para dados climáticos
 
-## Expanding the ESLint configuration
+## 📦 Instalação
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone este repositório:
 
-- Configure the top-level `parserOptions` property like this:
+   ```sh
+   git clone https://github.com/pvss-dev/weather-app.git
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+2. Instale as dependências:
+
+   ```sh
+   npm install
+   ```
+
+3. Crie um arquivo `.env` na raiz do projeto e adicione sua chave da API do OpenWeather:
+
+   ```env
+   VITE_OPEN_WEATHER_KEY=SUA_CHAVE_AQUI
+   ```
+
+## ▶️ Como Rodar o Projeto
+
+Após instalar as dependências, execute o projeto com o seguinte comando:
+
+```sh
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+A aplicação estará disponível em `http://localhost:5173/`.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 📌 Funcionalidades
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Busca a previsão do tempo por cidade
+- Exibe temperatura, umidade, previsões etc.
+- Ícones representando as condições climáticas
+- Atualização em tempo real ao pesquisar novas cidades
+
+## 📸 Captura de Tela
+
+*(Adicione uma captura de tela do projeto aqui)*
