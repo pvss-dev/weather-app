@@ -31,8 +31,8 @@ export const getCityCoordinates = async (
     const queryParts = [city];
     if (state) queryParts.push(state);
     if (country) queryParts.push(country);
-    const queryParam = encodeURIComponent(queryParts.join(","));
-
+    const queryParam = queryParts.join(",");
+    
     const url = `${BASE_URL}/direct?q=${queryParam}&limit=1&appid=${API_KEY}`;
 
     const response = await fetch(url);
